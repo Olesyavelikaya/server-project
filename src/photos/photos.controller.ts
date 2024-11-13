@@ -2,6 +2,7 @@ import { Controller, Get, Param, Res } from '@nestjs/common';
 import { Response } from 'express';
 import { PhotosService } from './photos.service';
 
+
 @Controller('photos')
 export class PhotosController {
   constructor(private photosService: PhotosService) {}

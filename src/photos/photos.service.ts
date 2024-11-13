@@ -10,14 +10,14 @@ export class PhotosService {
   async getPhotosUrls() {
     try {
       let filePhoto = await fs.readdir(this.photosFolder);
-      filePhoto = filePhoto.reduce((acc, name) => {
+      filePhoto = filePhoto.filter((name) => {
         const ext = path.extname(name);
-        if (['.jpg', '.jpeg'].includes(ext)) {
-          acc.push(`http://localhost:3000/photos/${name}`);
-        }
-        return acc;
-      }, []);
-      return filePhoto;
+        return ['.jpg', '.jpeg'].includes(ext);
+      });
+      return filePhoto.map((name, index) => ({
+        id: index + 1,
+        url: `http://localhost:3000/photos/${name}`,
+      }));
     } catch (e) {
       console.error(e);
     }
